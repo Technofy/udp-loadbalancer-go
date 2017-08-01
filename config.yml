@@ -1,0 +1,31 @@
+upstreams:
+ - name: vpn_servers
+   type: aws_autoscaling_group
+   hash: remote_ip
+   targets:
+    - myAutoScalingGroup
+
+ - name: static_servers
+   hash: remote_ip
+   targets:
+    - 10.0.0.2
+    - 10.0.0.3
+    - 10.0.0.4
+
+servers:
+  - bind: 0.0.0.0
+    port: 500
+    proto: udp
+    pass: static_servers:500
+
+  - bind: 0.0.0.0
+    port: 4500
+    proto: udp
+    pass: static_servers:4500
+
+pacemaker:
+  region: eu-west-1
+  interval: 10
+  namespace: IPSecLB
+  metric: Healthy
+
