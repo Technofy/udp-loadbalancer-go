@@ -28,12 +28,14 @@ The file `config.yaml` contains your application configuration. The one present 
 
 Here's a example config:
 
-```python
+```yaml
 ###################
-# Configure here
+# Configuration
 ###################
 ## List of servers to load balance to
+
 # Load Balancing to AWS autoscaling group
+upstreams:
  - name: vpn_servers
    type: aws_autoscaling_group
    hash: remote_ip
